@@ -1,0 +1,18 @@
+name: "Birth Github Config"
+description: "Action to config Birth projects on Github"
+author: "Birth Software"
+
+outputs:
+  BIRTH_GITHUB_TARGETS:
+    description: "Array of Birth targets"
+    value: ${{ steps.generate_config.outputs.BIRTH_GITHUB_TARGETS }}
+
+runs:
+  using: "composite"
+  steps:
+    - id: generate_config
+      shell: bash
+      run: |
+        echo '["ubuntu-24.04", "macos-15", "windows-2022"]' > os_list.json
+        BIRTH_GITHUB_TARGETS=$(cat os_list.json)
+        echo "BIRTH_GITHUB_TARGETS=$BIRTH_GITHUB_TARGETS" >> $GITHUB_OUTPUT

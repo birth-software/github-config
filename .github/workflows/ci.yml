@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  generate-config:
+    runs-on: ubuntu-latest
+    outputs:
+      BIRTH_GITHUB_TARGETS: ${{ steps.generate-config.outputs.BIRTH_GITHUB_TARGETS }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Generate config
+        id: GENERATE-CONFIG
+        uses: ./
+  receive-config:
+    needs: generate-config
+    strategy:
+      matrix:
+        os: ${{ fromJSON(needs.generate-config.outputs.BIRTH_GITHUB_TARGETS) }}
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Check
+        run: echo $BIRTH_GITHUB_TARGETS
+        shell: bash
