@@ -13,6 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       BIRTH_GITHUB_TARGETS: ${{ steps.generate-config.outputs.BIRTH_GITHUB_TARGETS }}
+      BIRTH_CMAKE_BUILD_TYPES: ${{ steps.generate-config.outputs.BIRTH_CMAKE_BUILD_TYPES }}
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -24,10 +25,15 @@ jobs:
     strategy:
       matrix:
         os: ${{ fromJSON(needs.generate-config.outputs.BIRTH_GITHUB_TARGETS) }}
+        cmake_build_type: ${{ fromJSON(needs.generate-config.outputs.BIRTH_CMAKE_BUILD_TYPES) }}
     runs-on: ${{ matrix.os }}
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
       - name: Check
-        run: echo $BIRTH_GITHUB_TARGETS
         shell: bash
+        run: |
+          set -ex
+          echo $BIRTH_GITHUB_TARGETS
+          echo ${{matrix.os}}
+          echo ${{matrix.cmake_build_type}}
