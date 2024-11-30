@@ -31,7 +31,7 @@ runs:
         echo '["${{env.BIRTH_ORACLE_LINUX_IMAGE}}", "${{env.BIRTH_LINUX_IMAGE}}", "${{env.BIRTH_MACOS_IMAGE}}", "${{env.BIRTH_WINDOWS_IMAGE}}"]' > os_list.json
         BIRTH_GITHUB_TARGETS=$(cat os_list.json)
         echo "BIRTH_GITHUB_TARGETS=$BIRTH_GITHUB_TARGETS" >> $GITHUB_OUTPUT
-        echo '["Debug", "RelWithDebInfo", "Release", "MinSizeRel"]' > cmake_build_types.json
+        echo '["MinSizeRel", "Release", "RelWithDebInfo", "Debug"]' > cmake_build_types.json
         BIRTH_CMAKE_BUILD_TYPES=$(cat cmake_build_types.json)
         echo "BIRTH_CMAKE_BUILD_TYPES=$BIRTH_CMAKE_BUILD_TYPES" >> $GITHUB_OUTPUT
         echo "BIRTH_ORACLE_LINUX_IMAGE=$BIRTH_ORACLE_LINUX_IMAGE" >> $GITHUB_OUTPUT
