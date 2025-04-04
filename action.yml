@@ -44,7 +44,7 @@ runs:
         BIRTH_COMPILERS=$(cat birth_compilers.json)
         echo "BIRTH_COMPILERS=$BIRTH_COMPILERS" >> $GITHUB_OUTPUT
 
-        echo '["${{env.BIRTH_LINUX_X86_64}}", "${{env.BIRTH_LINUX_AARCH64}}", "${{env.BIRTH_MACOS_AARCH64}}", "${{env.BIRTH_WINDOWS_X86_64}}"]' > os_list.json
+        echo '["${{env.BIRTH_LINUX_X86_64}}", "${{env.BIRTH_LINUX_AARCH64}}", "${{env.BIRTH_MACOS_AARCH64}}", "${{env.BIRTH_MACOS_X86_64}}", "${{env.BIRTH_WINDOWS_X86_64}}"]' > os_list.json
         BIRTH_GITHUB_TARGETS=$(cat os_list.json)
         echo "BIRTH_GITHUB_TARGETS=$BIRTH_GITHUB_TARGETS" >> $GITHUB_OUTPUT
 
@@ -71,5 +71,6 @@ runs:
       env:
         BIRTH_LINUX_X86_64: ubuntu-24.04
         BIRTH_LINUX_AARCH64: ubuntu-24.04-arm
+        BIRTH_MACOS_X86_64: macos-13
         BIRTH_MACOS_AARCH64: macos-15
         BIRTH_WINDOWS_X86_64: windows-2025
