@@ -20,6 +20,8 @@ jobs:
       - name: Generate config
         id: GENERATE-CONFIG
         uses: ./
+        with:
+          include_windows_aarch64: true
   receive-config:
     needs: generate-config
     strategy:
@@ -37,3 +39,5 @@ jobs:
           echo $BIRTH_GITHUB_TARGETS
           echo ${{matrix.os}}
           echo ${{matrix.cmake_build_type}}
+          uname -a
+          clang -v
